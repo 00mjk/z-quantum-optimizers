@@ -20,7 +20,7 @@ spec:
             # Setup env vars/other stuff
             export LC_ALL=C.UTF-8
             export LANG=C.UTF-8
-            export FLASK_APP=/root/open-pack-core/python/zquantum/core/optimizer/proxy/rest.py
+            export FLASK_APP=/root/z-quantum-optimizers/src/python/zquantum/optimizers/daemon_optimizer/proxy/rest.py
             # run python file
             python3 /app/start_proxy.py
       - name: start-proxy
