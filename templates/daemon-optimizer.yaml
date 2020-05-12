@@ -40,6 +40,7 @@ spec:
             optimizer_specs = {{inputs.parameters.optimizer-specs}}
             optimizer = create_object(optimizer_specs)
 
+            print("IP ADDRESS: {}".format("{{inputs.parameters.ip}}"))
             proxy_client = Client("{{inputs.parameters.ip}}", "8080")
             opt_results = optimize_variational_circuit_with_proxy(params,
                 optimizer, proxy_client)
