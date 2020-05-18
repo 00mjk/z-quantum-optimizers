@@ -47,4 +47,6 @@ class ScipyOptimizer(Optimizer):
         result.history = history
         if 'hess_inv' in result.keys():
             del result['hess_inv']
+        if 'final_simplex' in result.keys():
+            del result['final_simplex']
         return result
