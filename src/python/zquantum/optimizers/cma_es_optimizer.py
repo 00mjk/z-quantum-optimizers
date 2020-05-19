@@ -11,6 +11,8 @@ class CMAESOptimizer(Optimizer):
         else:
             self.sigma_0 = options.pop('sigma_0')
         self.options = options
+        if "keep_value_history" not in self.options.keys():
+            self.options["keep_value_history"] = True
 
     def minimize(self, cost_function, initial_params):
         """Minimize using the Covariance Matrix Adaptation Evolution Strategy
@@ -30,7 +32,8 @@ class CMAESOptimizer(Optimizer):
         def wrapped_cost_function(params):
 
             value = cost_function(params)
-            history.append({'params': params, 'value': value})
+            if self.options['keep_value_history']:
+                history.append({'params': params, 'value': value})
             print(f'Function evaluation {len(history)}: {value}', flush=True)
             print(f'{params}', flush=True)
 
