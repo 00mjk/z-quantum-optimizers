@@ -29,16 +29,17 @@ class CMAESOptimizer(Optimizer):
 
         # Optimization Results Object
         history = []
+        keep_value_history = self.options.pop('keep_value_history')
         def wrapped_cost_function(params):
 
             value = cost_function(params)
-            if self.options['keep_value_history']:
+            if keep_value_history:
                 history.append({'params': params, 'value': value})
             print(f'Function evaluation {len(history)}: {value}', flush=True)
             print(f'{params}', flush=True)
 
             return value
-
+        
         strategy = cma.CMAEvolutionStrategy(initial_params, self.sigma_0, self.options)
         result = strategy.optimize(wrapped_cost_function).result
 
@@ -49,5 +50,7 @@ class CMAESOptimizer(Optimizer):
         optimization_results['nfev'] = result.evaluations
         optimization_results['nit'] = result.iterations
         optimization_results['cma_xfavorite'] = list(result.xfavorite)
+
+        self.options['keep_value_history'] = keep_value_history
 
         return OptimizeResult(optimization_results)
