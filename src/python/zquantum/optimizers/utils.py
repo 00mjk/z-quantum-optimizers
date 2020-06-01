@@ -82,14 +82,14 @@ def save_optimization_results(optimization_results, filename):
                                         'params': convert_array_to_dict(step['params']),
                                         'optimization-evaluation-ids': step['optimization-evaluation-ids']}
                 if 'bitstring_distribution' in step.keys():
-                    evaluation['bitstring_distribution'] = step['bitstring_distribution']
+                    evaluation['bitstring_distribution'] = step['bitstring_distribution'].distribution_dict
 
                 data['history'].append(evaluation)
             else:
                 evaluation = {'value': step.get('value'),
                                         'params': convert_array_to_dict(step['params'])}
                 if 'bitstring_distribution' in step.keys():
-                    evaluation['bitstring_distribution'] = step['bitstring_distribution']
+                    evaluation['bitstring_distribution'] = step['bitstring_distribution'].distribution_dict
                 data['history'].append(evaluation)
 
     with open(filename, 'w') as f:
