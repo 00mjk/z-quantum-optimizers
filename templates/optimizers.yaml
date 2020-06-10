@@ -6,6 +6,8 @@ spec:
       parameters:
       - name: backend-specs
       - name: optimizer-specs
+      - name: gradient-type
+        default: "finite_difference"
       - name: command
         value: bash main_script.sh
       artifacts:
@@ -65,7 +67,7 @@ spec:
             backend_specs = {{inputs.parameters.backend-specs}}
             backend = create_object(backend_specs)
 
-            cost_function = EvaluateOperatorCostFunction(operator, ansatz, backend)
+            cost_function = EvaluateOperatorCostFunction(operator, ansatz, backend, gradient_type="{{inputs.parameters.gradient-type}}")
             if os.path.isfile('constraint_operator.json'):
               constraint_operator = load_qubit_operator('constraint_operator.json')
               constraint_cost_function = EvaluateOperatorCostFunction(constraint_operator, ansatz, backend)
