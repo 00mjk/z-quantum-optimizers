@@ -91,11 +91,11 @@ spec:
             save_backend_usage_info(backend, "backend-usage.json")
             save_optimization_results(opt_results, 'optimization-results.json')
             save_circuit_template_params(opt_results.opt_params, 'optimized_parameters.json')
-      outputs:
-        artifacts:
-        - name: optimization-results
-          path: /app/optimization-results.json
-        - name: optimized-parameters
-          path: /app/optimized_parameters.json
-        - name: backend-usage
-          path: /app/backend-usage.json
+    outputs:
+      artifacts:
+      - name: optimization-results
+        path: /app/optimization-results.json
+      - name: optimized-parameters
+        path: /app/optimized_parameters.json
+      - name: backend-usage
+        path: /app/backend-usage.json
