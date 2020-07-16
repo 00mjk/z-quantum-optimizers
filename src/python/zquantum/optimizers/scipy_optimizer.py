@@ -60,11 +60,15 @@ class ScipyOptimizer(Optimizer):
                 print(f"iteration {len(history)}")
             print(f"{params}", flush=True)
 
+        num_params = len(initial_params)
+        bounds = [(0.01, None) for param in initial_params]
+
         if callback is None:
             callback = default_callback
         result = scipy.optimize.minimize(
             cost_function.evaluate,
             initial_params,
+            bounds=bounds,
             method=self.method,
             options=self.options,
             constraints=self.constraints,
