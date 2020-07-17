@@ -36,6 +36,12 @@ class ScipyOptimizer(Optimizer):
             self.keep_value_history = self.options["keep_value_history"]
             del self.options["keep_value_history"]
 
+        if "use_parameter_bounds" not in self.options.keys():
+            self.use_parameter_bounds = False
+        else:
+            self.use_parameter_bounds = self.options["use_parameter_bounds"]
+            del self.options["use_parameter_bounds"]
+
     def minimize(self, cost_function, initial_params=None, callback=None):
         """
         Minimizes given cost function using functions from scipy.minimize.
@@ -60,8 +66,10 @@ class ScipyOptimizer(Optimizer):
                 print(f"iteration {len(history)}")
             print(f"{params}", flush=True)
 
-        num_params = len(initial_params)
-        bounds = [(0.01, None) for param in initial_params]
+        if self.use_parameter_bounds:
+            bounds = [(0.01, None) for param in initial_params]
+        else:
+            bounds = [(None, None) for param in initial_params]
 
         if callback is None:
             callback = default_callback
